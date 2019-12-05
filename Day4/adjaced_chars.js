@@ -8,21 +8,24 @@
 const min = 206938
 const max = 679128
 let validPasscodes_part1 = []
-let validPasscodes_part2 = []
 
 const testForAdjancent = (number) => {
-    let previous = ""
-    let numberOfAdjaced = 0
-    const characters = number.toString().split("")
+    const regExp = /(.)\1/
+    return number.toString().match(regExp)
+}
 
-    characters.map(char => {
-        hasadjaced = char == previous
-        previous = char
-        if (hasadjaced)
-            numberOfAdjaced++
-    })
+const testForDecrease = (number) => {
+    let previousNumber = 9  //starting from biggest digit (in base10)
+    let notDecreasing = 0
+    const characters = number.toString().split("").reverse()
     
-    if (numberOfAdjaced > 0)
+    characters.map(number => {
+        if (previousNumber-number < 0)
+            notDecreasing++
+        previousNumber = number
+    })
+
+    if (notDecreasing == 0)
         return true
     else
         return false 
@@ -60,27 +63,9 @@ const testForMultipleAdjancent = (number) => {
         }
 
         previous = char
-    
     })
     
     if (numberOfAdjaced > 0 || result)
-        return true
-    else
-        return false 
-}
-
-const testForDecrease = (number) => {
-    let previousNumber = 9  //starting from biggest digit (in base10)
-    let notDecreasing = 0
-    const characters = number.toString().split("").reverse()
-    
-    characters.map(number => {
-        if (previousNumber-number < 0)
-            notDecreasing++
-        previousNumber = number
-    })
-
-    if (notDecreasing == 0)
         return true
     else
         return false 
@@ -91,11 +76,9 @@ for (i=min; i <= max; i++) {
         validPasscodes_part1.push(i)
 }
 
-for (i=min; i <= max; i++) {
-    if (testForDecrease(i) && testForMultipleAdjancent(i))
-        validPasscodes_part2.push(i)
-}
+var listForPart2 = validPasscodes_part1.filter(item => testForMultipleAdjancent(item))
 
+//1653
 console.log(`Part1, number of valid passcodes: ${validPasscodes_part1.length}`)
-console.log(`Part2, number of valid passcodes: ${validPasscodes_part2.length}`)
-
+//1133
+console.log(`Part2, number of valid passcodes: ${listForPart2.length}`)
