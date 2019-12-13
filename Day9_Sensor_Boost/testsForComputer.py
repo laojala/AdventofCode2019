@@ -1,5 +1,5 @@
-from settings import pointer, oppcode, oppcodeDay5
-from intcodeComputer import callComputer
+from settings import pointer, oppcode, oppcodeDay5, oppcodeDay9
+from intcodeComputer import callComputer, setMemory
 
 
 #Day2-Part2
@@ -80,9 +80,52 @@ def test5():
 
     print("Test 5: Return code is 5821753:"), results[-1] == 5821753
 
+#Day 9 - Part 1
+def test6():
+
+    oppcode = oppcodeDay9[:]
+    inputCode = 1
+    pointer = 0
+    relativebase=0
+    returnCode = [pointer, None, None, relativebase]
+    results = []
+
+    setMemory(oppcode)
+
+    while (returnCode[0] != 99):
+        returnCode = callComputer(oppcode, pointer, inputCode, relativebase)
+        pointer = returnCode[1]
+        if returnCode[3] or returnCode[3] == 0:
+            relativebase = returnCode[3]
+        if returnCode[2] or returnCode[2] == 0:
+            results.append(returnCode[2])
+    print("Test 6: Return code is 3533056970:"), results[0] == 3533056970
+
+#Day 9 - Part 2
+def test7():
+
+    oppcode = oppcodeDay9[:]
+    inputCode = 2
+    pointer = 0
+    relativebase=0
+    returnCode = [pointer, None, None, relativebase]
+    results = []
+
+    setMemory(oppcode)
+
+    while (returnCode[0] != 99):
+        returnCode = callComputer(oppcode, pointer, inputCode, relativebase)
+        pointer = returnCode[1]
+        if returnCode[3] or returnCode[3] == 0:
+            relativebase = returnCode[3]
+        if returnCode[2] or returnCode[2] == 0:
+            results.append(returnCode[2])
+    print("Test 6: Return code is 72852:"), results[0] == 72852
 
 test1()
 test2()
 test3()
 test4()
 test5()
+test6()
+test7()
