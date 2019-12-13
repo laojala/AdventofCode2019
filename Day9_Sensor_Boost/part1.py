@@ -1,3 +1,5 @@
+import sys
+sys.path.append('../IntcodeComputer')
 from settings import oppcodeDay9
 from intcodeComputer import callComputer, setMemory
 
