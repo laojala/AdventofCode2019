@@ -88,7 +88,7 @@ def doOperation(oppcode, pointer, operation, modes=[0,0,0], value=0, relativebas
         elif modes[1] == 2:
             pointer2 = relativebase+oppcode[pointer+2]
 
-    #handle instruction:
+    #handle instruction. Content of output: ["99 exit code", "new pointer", "output value", relativebase]
 
     if operation == 1:
         result = oppcode[pointer1] + oppcode[pointer2]
@@ -100,10 +100,12 @@ def doOperation(oppcode, pointer, operation, modes=[0,0,0], value=0, relativebas
         oppcode[position] = result
         return [None, pointer+stepcount, None, relativebase]
 
+    #3: input
     if operation == 3:
         oppcode[position] = value
         return [None, pointer+stepcount, None, relativebase]
-
+    
+    #4: output
     if operation == 4:
         return [None, pointer+stepcount, oppcode[position], relativebase]
     
