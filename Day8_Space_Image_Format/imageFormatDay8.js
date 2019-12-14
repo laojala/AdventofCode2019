@@ -1,5 +1,3 @@
-// to run: install node.js, and then in terminal: node part1.js
-
 const fs = require('fs')
 const data = fs.readFileSync('./input.dat', 'utf-8').split('')
 const width = 25
@@ -23,7 +21,6 @@ const part1_checksum = () => {
             fewestZeroDigits.push(layer)
         }
     })
-
     return fewestZeroDigits[0].filter(digit => digit === 1).length * fewestZeroDigits[0].filter(digit => digit === 2).length
 } //part1_checksum
 
@@ -34,23 +31,22 @@ console.log(`Part 1 result is 1584: ${part1_checksum() === 1584}`)
 const part2_decode = () => {
 
     const getColor = (arrayOfArrays, index) => 
-        
-    arrayOfArrays.find(array => {
-        if (array[index] === 0 || array[index] === 1)
-            return array
+        arrayOfArrays.find(array => {
+            if (array[index] === 0 || array[index] === 1)
+                return array
     })
 
-    //creating transparent Array
+    //create transparent Array
     const transparent = new Array(width*height)
     transparent.fill(2)
 
     //filling just created transparent array
     const finalImage = transparent.map((item, index) => {
-    let array = getColor(layeredData, index)
-    if (array)
-        return array[index]
-    else 
-        return item
+        let array = getColor(layeredData, index)
+        if (array)
+            return array[index]
+        else 
+            return item
     })
 
     const toBePrinted = []
